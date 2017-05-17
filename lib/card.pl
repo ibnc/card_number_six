@@ -1,11 +1,3 @@
-#!/usr/bin/env swipl
-
-/* this tells prolog what predicate to call when the script first runs */
-:- initialization card_number_six.
-
-/* this is how you load other predicates from another file */
-:- ['indexof.pl'].
-
 /* These are 'Facts' */
 borders(1,4).
 borders(2,3).
@@ -60,7 +52,6 @@ valid_answer(PossibleAnswer) :-
 
 print_results([]).
 print_results([HEAD|TAIL]) :- /* [X|Y]: X is the first element in the list, and Y is list with X removed */
-  write("a valid answer: "),
   write(HEAD),
   nl, /* print new line */
   print_results(TAIL).
@@ -68,14 +59,12 @@ print_results([HEAD|TAIL]) :- /* [X|Y]: X is the first element in the list, and 
 
 card_number_six :-
   CardList=[a1,a2,k1,k2,q1,q2,j1,j2],
-  (
-    /* Findall finds all possible solutions, and gathers them into the last argument R
-       In other words, you can read the bellow as "find all valid answers for all permutations of CardList"
-     */
-    findall(X, (permutation(CardList, X) ,valid_answer(X)), R),
-    print_results(R),
-    halt(0)
-  );
-  write("something went wrong :("),
-  nl
-  halt(1).
+  /*
+     Findall finds all possible solutions, and gathers them into the last argument R
+     In other words, you can read the bellow as:
+     "find all valid answers for all permutations of CardList"
+   */
+  findall(X, (permutation(CardList, X) ,valid_answer(X)), R),
+  write("valid answers:"),
+  nl,
+  print_results(R).
