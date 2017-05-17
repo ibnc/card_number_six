@@ -1,8 +1,9 @@
 #!/usr/bin/env swipl
 
-:- initialization main.
-/* this is how you load other predicates from another file */
+/* this tells prolog what predicate to call when the script first runs */
+:- initialization card_number_six.
 
+/* this is how you load other predicates from another file */
 :- ['indexof.pl'].
 
 /* These are 'Facts' */
@@ -41,7 +42,7 @@ is_next_to(A,[B,C],L) :-
   (next_to(A,B,L);
   next_to(A,C,L)).
 
-validAnswer(PossibleAnswer) :-
+valid_answer(PossibleAnswer) :-
   not_next_to(a1,a2,PossibleAnswer),
   not_next_to(k1,k2,PossibleAnswer),
   not_next_to(q1,q2,PossibleAnswer),
@@ -57,12 +58,24 @@ validAnswer(PossibleAnswer) :-
   is_next_to(q1,[j1,j2],PossibleAnswer),
   is_next_to(q2,[j1,j2],PossibleAnswer).
 
-main :-
-  main(X).
+print_results([]).
+print_results([HEAD|TAIL]) :- /* [X|Y]: X is the first element in the list, and Y is list with X removed */
+  write("a valid answer: "),
+  write(HEAD),
+  nl, /* print new line */
+  print_results(TAIL).
 
-main(X) :-
-  permutation([a1,a2,k1,k2,q1,q2,j1,j2], X), validAnswer(X),
-  write("valid answer: "),
-  write(X),
-  nl,
-  halt(0).
+
+card_number_six :-
+  CardList=[a1,a2,k1,k2,q1,q2,j1,j2],
+  (
+    /* Findall finds all possible solutions, and gathers them into the last argument R
+       In other words, you can read the bellow as "find all valid answers for all permutations of CardList"
+     */
+    findall(X, (permutation(CardList, X) ,valid_answer(X)), R),
+    print_results(R),
+    halt(0)
+  );
+  write("something went wrong :("),
+  nl
+  halt(1).
