@@ -1,5 +1,9 @@
+#!/usr/bin/env swipl
+
+:- initialization main.
 /* this is how you load other predicates from another file */
-:- ['indexof.prolog'].
+
+:- ['indexof.pl'].
 
 /* These are 'Facts' */
 borders(1,4).
@@ -22,7 +26,7 @@ borders(8,6).
 /* These are 'Rules'
    Rules are Facts with bodies (aka 'Goals')
    In Prolog, "," stands for conjunction (aka and) while ";" stands for disjunction (aka or).
- */
+*/
 next_to(A,B,List) :-
     indexOf(List, A, Index1),
     indexOf(List, B, Index2),
@@ -53,4 +57,12 @@ validAnswer(PossibleAnswer) :-
   is_next_to(q1,[j1,j2],PossibleAnswer),
   is_next_to(q2,[j1,j2],PossibleAnswer).
 
-/* to Evaluate, open prolog promt, and run permutation([a1,a2,k1,k2,q1,q2,j1,j2], X), validAnswer(X). */
+main :-
+  main(X).
+
+main(X) :-
+  permutation([a1,a2,k1,k2,q1,q2,j1,j2], X), validAnswer(X),
+  write("valid answer: "),
+  write(X),
+  nl,
+  halt(0).
