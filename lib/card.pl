@@ -35,20 +35,20 @@ is_next_to(A,[B,C],L) :-
   next_to(A,C,L)).
 
 valid_answer(PossibleAnswer) :-
-  not_next_to(a1,a2,PossibleAnswer),
-  not_next_to(k1,k2,PossibleAnswer),
-  not_next_to(q1,q2,PossibleAnswer),
-  not_next_to(j1,j2,PossibleAnswer),
-  not_next_to(a1,q1,PossibleAnswer),
-  not_next_to(a1,q2,PossibleAnswer),
-  not_next_to(a2,q1,PossibleAnswer),
-  not_next_to(a2,q2,PossibleAnswer),
-  is_next_to(a1,[k1,k2],PossibleAnswer),
-  is_next_to(a2,[k1,k2],PossibleAnswer),
-  is_next_to(k1,[q1,q2],PossibleAnswer),
-  is_next_to(k2,[q1,q2],PossibleAnswer),
-  is_next_to(q1,[j1,j2],PossibleAnswer),
-  is_next_to(q2,[j1,j2],PossibleAnswer).
+  not_next_to(a1, a2, PossibleAnswer),
+  not_next_to(k1, k2, PossibleAnswer),
+  not_next_to(q1, q2, PossibleAnswer),
+  not_next_to(j1, j2, PossibleAnswer),
+  not_next_to(a1, q1, PossibleAnswer),
+  not_next_to(a1, q2, PossibleAnswer),
+  not_next_to(a2, q1, PossibleAnswer),
+  not_next_to(a2, q2, PossibleAnswer),
+  is_next_to(a1, [k1, k2], PossibleAnswer),
+  is_next_to(a2, [k1, k2], PossibleAnswer),
+  is_next_to(k1, [q1, q2], PossibleAnswer),
+  is_next_to(k2, [q1, q2], PossibleAnswer),
+  is_next_to(q1, [j1, j2], PossibleAnswer),
+  is_next_to(q2, [j1, j2], PossibleAnswer).
 
 print_results([]).
 print_results([HEAD|TAIL]) :- /* [X|Y]: X is the first element in the list, and Y is list with X removed */
@@ -64,7 +64,7 @@ card_number_six :-
      In other words, you can read the bellow as:
      "find all valid answers for all permutations of CardList"
    */
-  findall(X, (permutation(CardList, X) ,valid_answer(X)), R),
+  findall(X, (permutation(CardList, X), valid_answer(X)), R),
   write("valid answers:"),
   nl,
   print_results(R).
