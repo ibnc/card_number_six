@@ -67,4 +67,9 @@ card_number_six :-
   findall(X, (permutation(CardList, X), valid_answer(X)), R),
   write("valid answers:"),
   nl,
-  print_results(R).
+  print_results(R),
+  length(R, LENGTH),
+  write("There are "),
+  write(LENGTH),
+  write(" valid answers"),
+  nl.
