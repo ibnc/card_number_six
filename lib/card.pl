@@ -56,9 +56,24 @@ print_results([HEAD|TAIL]) :- /* [X|Y]: X is the first element in the list, and 
   nl, /* print new line */
   print_results(TAIL).
 
+card_list(X) :-
+  X = [a1,a2,k1,k2,q1,q2,j1,j2].
+
+ends_with_a2(LIST) :-
+  last(LIST, LAST),
+  LAST == a2.
+
+
+find_ones_that_end_with_a2 :-
+  card_list(CardList),
+  findall(X, (permutation(CardList, X), valid_answer(X), ends_with_a2(X)), R),
+  write("Solutions ending with a2:"),
+  nl,
+  print_results(R),
+  nl.
 
 card_number_six :-
-  CardList=[a1,a2,k1,k2,q1,q2,j1,j2],
+  card_list(CardList),
   /*
      Findall finds all possible solutions, and gathers them into the last argument R
      In other words, you can read the bellow as:

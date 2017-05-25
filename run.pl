@@ -13,4 +13,6 @@
 
 main :-
   card_number_six,
+  nl,
+  find_ones_that_end_with_a2,
   halt.
